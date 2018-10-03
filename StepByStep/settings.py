@@ -18,7 +18,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
-    'Account.apps.UserConfig',
+    'Account.apps.AccountConfig',
     'Area.apps.AreaConfig',
     'Plan.apps.PlanConfig',
     'Problem.apps.ProblemConfig',
