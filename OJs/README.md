@@ -102,7 +102,7 @@ StepByStep 可以通过自行编写爬虫来支持更多的 OJ，需要的爬虫
 ]
 ```
 
-其中 pid、source、result 是必须要有的。
+其中 pid、source、result、submission_time 是必须要有的。
 
 ### source
 

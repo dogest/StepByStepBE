@@ -13,20 +13,20 @@ def get_cnt():
 def main():
     cnt = get_cnt()
     return_data = []
-    for i in range(1000, cnt + 1):
-        url = 'https://acm.sdut.edu.cn/onlinejudge2/index.php/API/Problem?pid={}'.format(
-            i)
+    cur = 0
+    cli = 0
+    while cur < cnt and cli < 100:  # 最多请求 100 次（10000 个题目），防止无限重定向等
+        cli += 1
+        url = 'https://acm.sdut.edu.cn/onlinejudge2/index.php/API/Problem?pid={}&cmp=g&order=ASC&limit=100'.format(
+            cur)
         req = requests.get(url)
         data = json.loads(req.text)
-        if not data:
-            print('题目 {} 无法获取'.format(i))
-            continue
-        data = data[0]
-        return_data.append({
-            'pid': data['pid'],
-            'title': data['title'],
-        })
-        print('获取题目 {} 成功'.format(i))
+        for p in data:
+            return_data.append({
+                'pid': str(p['pid']),
+                'title': p['title']
+            })
+            cur = p['pid']
     return return_data
 
 
