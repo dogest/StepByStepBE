@@ -15,6 +15,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+
+    'Account.apps.UserConfig',
+    'Area.apps.AreaConfig',
+    'Plan.apps.PlanConfig',
+    'Problem.apps.ProblemConfig',
+    'Solution.apps.SolutionConfig',
 ]
 
 MIDDLEWARE = [
@@ -84,9 +92,8 @@ TIME_ZONE = 'Asia/Shanghai'
 
 # rest framework
 REST_FRAMEWORK = {
-    # 默认 API 权限为任何人可读
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'rest_framework.permissions.IsAdminUser',
     ),
     # 使用 jwt 权限认证
     'DEFAULT_AUTHENTICATION_CLASSES': (
