@@ -16,7 +16,7 @@ StepByStep 可以通过自行编写爬虫来支持更多的 OJ，需要的爬虫
 
 ## problems.py
 
-爬取对应 OJ 所有题目的爬虫
+爬取对应 OJ 所有题目的爬虫，url 是能够直接到指定题目的链接。
 
 参数：
 
@@ -27,28 +27,34 @@ StepByStep 可以通过自行编写爬虫来支持更多的 OJ，需要的爬虫
 ```json
 [
     {
-        "pid": 1000,
-        "title": "A + B Problem"
+        "pid": "1000",
+        "title": "A+B Problem",
+        "url": "https://acm.sdut.edu.cn/onlinejudge2/index.php/Home/Index/problemdetail/pid/1000.html"
     },
     {
-        "pid": 1001,
-        "title": "487-3279"
+        "pid": "1001",
+        "title": "487-3279",
+        "url": "https://acm.sdut.edu.cn/onlinejudge2/index.php/Home/Index/problemdetail/pid/1001.html"
     },
     {
-        "pid": 1002,
-        "title": "Biorhythms"
+        "pid": "1002",
+        "title": "Biorhythms",
+        "url": "https://acm.sdut.edu.cn/onlinejudge2/index.php/Home/Index/problemdetail/pid/1002.html"
     },
     {
-        "pid": 1003,
-        "title": "ID Codes"
+        "pid": "1003",
+        "title": "ID Codes",
+        "url": "https://acm.sdut.edu.cn/onlinejudge2/index.php/Home/Index/problemdetail/pid/1003.html"
     },
     {
-        "pid": 1004,
-        "title": "Packets"
+        "pid": "1004",
+        "title": "Packets",
+        "url": "https://acm.sdut.edu.cn/onlinejudge2/index.php/Home/Index/problemdetail/pid/1004.html"
     },
     {
-        "pid": 1005,
-        "title": "Farmland"
+        "pid": "1005",
+        "title": "Farmland",
+        "url": "https://acm.sdut.edu.cn/onlinejudge2/index.php/Home/Index/problemdetail/pid/1005.html"
     }
 ]
 ```

@@ -24,7 +24,8 @@ def main():
         for p in data:
             return_data.append({
                 'pid': str(p['pid']),
-                'title': p['title']
+                'title': p['title'],
+                'url': 'https://acm.sdut.edu.cn/onlinejudge2/index.php/Home/Index/problemdetail/pid/{}.html'.format(p['pid'])
             })
             cur = p['pid']
     return return_data
