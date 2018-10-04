@@ -15,8 +15,14 @@ class UserDetail(models.Model):
     nickname = models.CharField(max_length=128)
     user_type = models.CharField(max_length=128, choices=user_types)
 
+    # 在学校的信息（如果有的话）
+    school = models.CharField(max_length=128, blank=True)  # 学校
+    college = models.CharField(max_length=128, blank=True)  # 学院
+    major = models.CharField(max_length=128, blank=True)  # 系
+    team = models.CharField(max_length=128, blank=True)  # 班级 / 组
+
     # if user_type == 'admin' or user_type == 'user'
-    area = models.ForeignKey(Area, on_delete=models.CASCADE)
+    area = models.ForeignKey(Area, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.nickname

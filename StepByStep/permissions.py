@@ -6,9 +6,13 @@ class IsRootOrReadOnly(BasePermission):
         return (
             request.method in SAFE_METHODS or
             (
-                request.user and (
+                request.user and request.user.is_authenticated and
+                (
                     request.user.is_staff or
-                    request.user.userdetail.user_type == 'root'
+                    (
+                        request.user.userdetail and
+                        request.user.userdetail.user_type == 'root'
+                    )
                 )
             )
         )
