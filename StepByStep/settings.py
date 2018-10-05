@@ -9,14 +9,15 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'corsheaders',
+    'rest_framework',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'rest_framework',
 
     'Account.apps.AccountConfig',
     'Area.apps.AreaConfig',
@@ -26,6 +27,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -112,3 +116,12 @@ JWT_AUTH = {
     # 修改 token 过期时间
     'JWT_EXPIRATION_DELTA': timedelta(seconds=60 * 60 * 24),
 }
+
+# CORS
+# 是否允许任何网站使用
+CORS_ORIGIN_ALLOW_ALL = True
+# 白名单（精准匹配）
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8000',
+    '127.0.0.1:8000'
+)
