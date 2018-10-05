@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from Account.models import User, UserDetail
-from Account.serializers import UserSerializer
+from Account.serializers import UserDetailSerializer
 from Area.models import Area
 
 
@@ -32,9 +32,9 @@ class SessionApiView(APIView):
 
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes = (AllowAny,)
-    # 仅返回体系内的用户，django 自带的管理员不应纳入此体系中（他的地位比体系内所有用户都高）
-    queryset = User.objects.filter(is_staff=False)
-    serializer_class = UserSerializer
+    queryset = UserDetail.objects.filter()
+    serializer_class = UserDetailSerializer
+    filter_fields = ('nickname', 'area')
 
     def create(self, request):
         """

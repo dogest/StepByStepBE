@@ -11,6 +11,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
+    'django_filters',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -109,6 +110,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'StepByStep.pagination.CursorOrderByIdPagination',
     'PAGE_SIZE': 10,
     'MAX_PAGE_SIZE': 100,
+    # filter
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
 }
 
 # jwt
