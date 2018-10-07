@@ -34,7 +34,14 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = (AllowAny,)
     queryset = UserDetail.objects.filter()
     serializer_class = UserDetailSerializer
-    filter_fields = ('nickname', 'area')
+    filter_fields = {
+        'area': ('exact',),
+        'nickname': ('icontains',),
+        'school': ('icontains',),
+        'college': ('icontains',),
+        'major': ('icontains',),
+        'team': ('icontains',),
+    }
 
     def create(self, request):
         """
