@@ -6,11 +6,7 @@
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-python manage.py makemigrations Account
-python manage.py makemigrations Area
-python manage.py makemigrations Plan
-python manage.py makemigrations Problem
-python manage.py makemigrations Solution
+python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 ```
