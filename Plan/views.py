@@ -1,9 +1,12 @@
+import json
+
 from rest_framework import viewsets
 from rest_framework.response import Response
 
-from Plan.models import Plan, PlanProblem, PlanUser
+from Plan.models import Plan, PlanUser
 from Plan.permissions import PlanPermission
-from Plan.serializers import PlanSerializers
+from Plan.serializers import (PlanSerializers, PlanUserSerializers,
+                              PlanWithContentSerializers)
 from StepByStep.permissions import IsAdmin
 
 
@@ -12,6 +15,11 @@ class PlanViewSet(viewsets.ModelViewSet):
     serializer_class = PlanSerializers
     permission_classes = (PlanPermission,)
     filter_fields = ('area',)
+
+    def get_serializer_class(self):
+        if self.detail:
+            return PlanWithContentSerializers
+        return PlanSerializers
 
     def create(self, request):
         """
@@ -31,8 +39,16 @@ class PlanViewSet(viewsets.ModelViewSet):
         plan.area = area
         plan.name = name
         plan.save()
+
         return Response({
             'id': plan.id,
             'area': area.id,
             'name': name
         }, 201)
+
+
+class PlanUserViewSet(viewsets.ModelViewSet):
+    queryset = PlanUser.objects.all()
+    serializer_class = PlanUserSerializers
+    permission_classes = (PlanPermission,)
+    filter_fields = ('plan',)

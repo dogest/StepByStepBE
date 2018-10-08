@@ -3,14 +3,15 @@ from django.urls import include, path
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
-from Account.views import UserViewSet, SessionApiView
+from Account.views import SessionApiView, UserViewSet
 from Area.views import AreaViewSet
-from Plan.views import PlanViewSet
+from Plan.views import PlanUserViewSet, PlanViewSet
 
 router = routers.DefaultRouter()
 router.register('user', UserViewSet)
 router.register('area', AreaViewSet)
 router.register('plan', PlanViewSet)
+router.register('plan_user', PlanUserViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),

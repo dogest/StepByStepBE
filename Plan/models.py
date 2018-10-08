@@ -8,6 +8,8 @@ class Plan(models.Model):
     area = models.ForeignKey(Area, on_delete=models.CASCADE)
     name = models.CharField(max_length=128)
 
+    content = models.TextField(max_length=102400, blank=True)
+
     def __str__(self):
         return self.name
 
@@ -19,11 +21,3 @@ class PlanUser(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.plan.name, self.user.userdetail.nickname)
-
-
-class PlanProblem(models.Model):
-    plan = models.OneToOneField(Plan, on_delete=models.CASCADE)
-    content = models.TextField(max_length=102400)
-
-    def __str__(self):
-        return self.plan.name
