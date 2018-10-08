@@ -36,6 +36,17 @@ def IsRoot(user):
     return False
 
 
+def IsAdmin(user):
+    """
+    判断用户是否有 admin 权限
+    """
+    if not user or not user.is_authenticated:
+        return False
+    if user.userdetail and user.userdetail.user_type == 'admin':
+        return True
+    return False
+
+
 def IsAreaAdmin(area, user):
     """
     判断用户是否是指定域的管理员
