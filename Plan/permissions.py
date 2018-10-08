@@ -28,3 +28,22 @@ class PlanPermission(BasePermission):
                     request.data.get('area') == str(obj.area.id)):
                 return True
         return False
+
+
+class PlanUserPermission(BasePermission):
+    def has_permission(self, request, view):
+        if request.method in SAFE_METHODS:
+            return True
+        # 仅允许添加、删除与查看
+        if request.method in ['POST', 'DELETE']:
+            return True
+        return False
+
+    def has_object_permission(self, request, view, obj):
+        if request.method in SAFE_METHODS:
+            return True
+        if IsRoot(request.user):
+            return True
+        if IsAreaAdmin(obj.plan.area, request.user):
+            return True
+        return False

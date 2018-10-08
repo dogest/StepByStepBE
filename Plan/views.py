@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 
 from Plan.models import Plan, PlanUser
-from Plan.permissions import PlanPermission
+from Plan.permissions import PlanPermission, PlanUserPermission
 from Plan.serializers import (PlanSerializers, PlanUserSerializers,
                               PlanWithContentSerializers)
 from StepByStep.permissions import IsAdmin
@@ -50,5 +50,5 @@ class PlanViewSet(viewsets.ModelViewSet):
 class PlanUserViewSet(viewsets.ModelViewSet):
     queryset = PlanUser.objects.all()
     serializer_class = PlanUserSerializers
-    permission_classes = (PlanPermission,)
+    permission_classes = (PlanUserPermission,)
     filter_fields = ('plan',)
