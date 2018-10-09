@@ -1,11 +1,12 @@
 from rest_framework import viewsets
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from Account.models import User, UserDetail
+from Account.models import User, UserDetail, UserOJBind
 from Account.serializers import UserDetailSerializer
 from Area.models import Area
+from OJs.config import OJs
 
 
 class SessionApiView(APIView):
@@ -28,6 +29,60 @@ class SessionApiView(APIView):
                 'name': area.name
             }
         return Response(return_data)
+
+
+class UserOJBindApiView(APIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def get(self, request, user_id=None):
+        if user_id is None:
+            user = request.user
+        else:
+            user = User.objects.get(pk=user_id)
+        user_oj_bind_set = UserOJBind.objects.filter(user=user)
+        return_data = []
+        for i in user_oj_bind_set:
+            return_data.append({
+                'user': i.user.id,
+                'source': i.source,
+                'username': i.username
+            })
+        return Response(return_data, 200)
+
+    def post(self, request):
+        source = request.data.get('source')
+        username = request.data.get('username')
+        password = request.data.get('password')
+        if not (source and username and password):
+            return Response({
+                'detail': ['参数 source、username、password 必须填写']
+            }, 400)
+        if not source in OJs:
+            return Response({
+                'source': ['只能为 [{}] 中的一个'.format(', '.join(OJs))]
+            }, 400)
+        imp = __import__('OJs.{}.user_check'.format(source))
+        result = getattr(imp, source).user_check.main(username, password)
+        if result:
+            user_oj_bind = UserOJBind.objects.filter(
+                user=request.user, source=source)
+            if user_oj_bind:
+                user_oj_bind = user_oj_bind[0]
+            else:
+                user_oj_bind = UserOJBind()
+            user_oj_bind.user = request.user
+            user_oj_bind.source = source
+            user_oj_bind.username = username
+            user_oj_bind.save()
+            return Response({
+                'user': request.user.id,
+                'source': source,
+                'username': username
+            }, 201)
+        else:
+            return Response({
+                'detail': ['用户名或密码错误']
+            }, 400)
 
 
 class UserViewSet(viewsets.ModelViewSet):

@@ -3,7 +3,7 @@ from django.urls import include, path
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
-from Account.views import SessionApiView, UserViewSet
+from Account.views import SessionApiView, UserViewSet, UserOJBindApiView
 from Area.views import AreaViewSet
 from Plan.views import PlanUserViewSet, PlanViewSet
 
@@ -16,6 +16,8 @@ router.register('plan_user', PlanUserViewSet)
 urlpatterns = [
     path('api/', include(router.urls)),
     path('api/session/', SessionApiView.as_view()),
+    path('api/bind/', UserOJBindApiView.as_view()),
+    path('api/bind/<int:user_id>/', UserOJBindApiView.as_view()),
 
     # jwt
     path('api/token/', obtain_jwt_token),

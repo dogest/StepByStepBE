@@ -22,7 +22,16 @@ class UserDetail(models.Model):
     team = models.CharField(max_length=128, blank=True)  # 班级 / 组
 
     # if user_type == 'admin' or user_type == 'user'
-    area = models.ForeignKey(Area, on_delete=models.CASCADE, blank=True, null=True)
+    area = models.ForeignKey(
+        Area, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.nickname
+
+
+class UserOJBind(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    source = models.CharField(max_length=128)
+    username = models.CharField(max_length=128)
+    created = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(auto_now_add=True)
