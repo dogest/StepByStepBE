@@ -73,7 +73,8 @@ StepByStep 可以通过自行编写爬虫来支持更多的 OJ，需要的爬虫
 ```json
 [
     {
-        "pid": 1000,
+        "runid": "1234",
+        "pid": "1000",
         "source": "SDUT",
         "result": "Wrong Answer",
         "time": 30,
@@ -84,7 +85,8 @@ StepByStep 可以通过自行编写爬虫来支持更多的 OJ，需要的爬虫
         "code_length": 43
     },
     {
-        "pid": 3406,
+        "runid": "1235",
+        "pid": "3406",
         "source": "SDUT",
         "result": "Wrong Answer",
         "time": 40,
@@ -95,7 +97,8 @@ StepByStep 可以通过自行编写爬虫来支持更多的 OJ，需要的爬虫
         "code_length": 32
     },
     {
-        "pid": 3406,
+        "runid": "1236",
+        "pid": "3406",
         "source": "SDUT",
         "result": "Wrong Answer",
         "time": 30,
@@ -108,7 +111,7 @@ StepByStep 可以通过自行编写爬虫来支持更多的 OJ，需要的爬虫
 ]
 ```
 
-其中 pid、source、result、submission_time 是必须要有的。
+其中 runid、pid、source、result、submission_time 是必须要有的。
 
 ### source
 

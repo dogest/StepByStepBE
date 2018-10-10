@@ -52,6 +52,7 @@ def main(username, last=0):
             break
         for i in data:
             return_data.append({
+                'runid': i['runid'],
                 'pid': i['pid'],
                 'source': 'SDUT',
                 'result': result_to_string(i['result']),

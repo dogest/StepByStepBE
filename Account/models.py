@@ -35,3 +35,7 @@ class UserOJBind(models.Model):
     username = models.CharField(max_length=128)
     created = models.DateTimeField(auto_now=True)
     updated = models.DateTimeField(auto_now_add=True)
+    last = models.CharField(max_length=128)
+
+    def __str__(self):
+        return '{} {}: {}'.format(self.source, self.user.userdetail.nickname, self.username)
