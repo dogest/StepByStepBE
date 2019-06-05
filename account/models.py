@@ -3,6 +3,7 @@ from django.db import models
 
 
 class UserDetail(models.Model):
+    """ 从 GitHub 获取到的用户信息 """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     github_id = models.IntegerField()
     node_id = models.CharField(max_length=1024, blank=True, null=True)
