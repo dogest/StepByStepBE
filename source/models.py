@@ -4,7 +4,7 @@ from django.db import models
 
 class Source(models.Model):
     """ OJ 平台 """
-    name = models.CharField(max_length=1024)
+    name = models.CharField(max_length=1024, primary_key=True)
     url = models.CharField(max_length=1024)
     created_at = models.DateTimeField(auto_now_add=True)
 

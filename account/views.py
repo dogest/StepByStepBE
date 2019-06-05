@@ -1,14 +1,24 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User, update_last_login
+from rest_framework import viewsets
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED
+from rest_framework.status import (HTTP_200_OK, HTTP_400_BAD_REQUEST,
+                                   HTTP_401_UNAUTHORIZED)
 
 from account.models import UserDetail
 from account.oauth import get_access_token, get_user_info
+from account.serializers import UserDetailSerializer
+from StepByStepBE.permissions import ReadOnly
 from StepByStepBE.settings import client_id
+
+
+class UserDetailViewSet(viewsets.ModelViewSet):
+    queryset = UserDetail.objects.all()
+    serializer_class = UserDetailSerializer
+    permission_classes = (ReadOnly,)
 
 
 @api_view(['GET'])
@@ -32,7 +42,7 @@ def login(request):
     email = user_info['email']
     password = 'password'  # 没有任何用处，也不会用这个密码来登陆
     user = authenticate(username=username, password=password)
-    print(user_info)
+
     # 如果之前没有这个用户则创建
     if not user:
         user = User.objects.create_user(
@@ -42,6 +52,7 @@ def login(request):
         )
         user_detail = UserDetail(
             user=user,
+            username=username,
             github_id=user_info.get('id', ''),
             node_id=user_info.get('node_id', ''),
             avatar_url=user_info.get('avatar_url', ''),
