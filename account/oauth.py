@@ -13,7 +13,7 @@ def get_access_token(code):
         'Accept': 'application/json',
     }
     resp = requests.post(url, data=data, headers=headers)
-    return resp.json()['access_token']
+    return resp.json().get('access_token')
 
 
 def get_user_info(access_token):

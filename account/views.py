@@ -4,7 +4,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED
 
 from account.models import UserDetail
 from account.oauth import get_access_token, get_user_info
@@ -22,6 +22,10 @@ def login(request):
             'redirect': f'https://github.com/login/oauth/authorize?client_id={client_id}'
         }, status=HTTP_400_BAD_REQUEST)
     access_token = get_access_token(code)
+    if access_token is None:
+        return Response({
+            'error': 'Wrong code',
+        }, status=HTTP_401_UNAUTHORIZED)
     user_info = get_user_info(access_token)
 
     username = user_info['login']
